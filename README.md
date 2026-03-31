@@ -1,6 +1,6 @@
-# LeadCorretor
+# CRM-DE-LEDS
 
-PWA frontend-only para gerenciamento de leads com React + Vite.
+LeadCorretor e um PWA frontend-only para gerenciamento de leads com React + Vite.
 
 ## Variaveis de ambiente
 
