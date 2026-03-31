@@ -1,0 +1,24 @@
+{
+  "name": "LeadCorretor",
+  "short_name": "LeadCorretor",
+  "description": "PWA para gestao simples de leads com funil visual.",
+  "display": "standalone",
+  "start_url": "/",
+  "background_color": "#f4efe7",
+  "theme_color": "#0f766e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
