@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { LeadForm } from "../components/LeadForm";
-import { statusLabels, statusOrder } from "../data";
+import { etiquetaColors, etiquetaLabels, statusLabels, statusOrder } from "../data";
 import { useLeads } from "../hooks/useLeads";
 import { atualizarLead, excluirLead, mudarStatus } from "../lib/leadsStorage";
 import type { LeadStatus } from "../types";
@@ -17,10 +17,10 @@ export function LeadDetailPage() {
   if (!lead) {
     return (
       <div className="page">
-        <Header title="Lead nao encontrado" />
+        <Header title="Lead não encontrado" />
         <section className="page-content">
           <div className="empty-state">
-            <p>Esse lead nao existe mais.</p>
+            <p>Esse lead não existe mais.</p>
             <Link to="/" className="primary-button">
               Voltar para lista
             </Link>
@@ -29,6 +29,8 @@ export function LeadDetailPage() {
       </div>
     );
   }
+
+  const criadoEm = lead.criadoEm ? new Date(lead.criadoEm) : null;
 
   return (
     <div className="page">
@@ -43,6 +45,42 @@ export function LeadDetailPage() {
             <div>
               <span className="muted">Interesse</span>
               <strong>{lead.interesse}</strong>
+            </div>
+          ) : null}
+          {lead.etiquetas.length || lead.etiquetasCustom.length ? (
+            <div>
+              <span className="muted">Etiquetas</span>
+              <div className="tag-row">
+                {lead.etiquetas.map((tag) => (
+                  <span key={tag} className={`tag-pill ${etiquetaColors[tag]}`}>
+                    {etiquetaLabels[tag]}
+                  </span>
+                ))}
+                {lead.etiquetasCustom.map((tag) => (
+                  <span key={`${tag.nome}-${tag.cor}`} className="tag-pill tag-custom" data-cor={tag.cor}>
+                    {tag.nome}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {lead.camposExtras.length ? (
+            <div>
+              <span className="muted">Campos extras</span>
+              <div className="extra-summary">
+                {lead.camposExtras.map((campo, index) => (
+                  <div key={`${campo.chave}-${index}`} className="extra-summary-row">
+                    <strong>{campo.chave}</strong>
+                    <span className="muted">{campo.valor}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {criadoEm && !Number.isNaN(criadoEm.getTime()) ? (
+            <div>
+              <span className="muted">Criado em</span>
+              <strong>{criadoEm.toLocaleString("pt-BR")}</strong>
             </div>
           ) : null}
           <label>
